@@ -1,5 +1,6 @@
 pack :: (Eq a) => [a] -> [[a]]
-pack x = foldr (\x y -> 
-               if x==(head $ head y) 
-               then (x:head y):tail y
-               else [x]:y)  [[last x]] x
+pack = foldr f [[]]
+       where f x [[]] = [[x]]
+             f x z@(y:ys) = if x==(head $ y) 
+                          then (x:y):ys
+                          else [x]:z
