@@ -1,7 +1,11 @@
 H-99
 ====
 
-Solutions for H-99: Ninety-Nine Haskell Problems
+Solutions for H-99: Ninety-Nine Haskell Problems.
+
+What is H-99?
+--------
+> Haskell translations of Ninety-Nine Lisp Problems, which are themselves translations of Ninety-Nine Prolog Problems.
 
 Original Problems
 --------
