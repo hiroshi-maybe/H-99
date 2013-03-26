@@ -9,7 +9,7 @@ Original Problems
 [H-99: Ninety-Nine Haskell Problems] (http://www.haskell.org/haskellwiki/99_Haskell_exercises)
 
 1. [Questions 1 to 10] (http://www.haskell.org/haskellwiki/99_questions/1_to_10): Lists
-2. Questions 11 to 20: Lists, continued
+2. [Questions 11 to 20] (http://www.haskell.org/haskellwiki/99_questions/11_to_20): Lists, continued
 3. Questions 21 to 28: Lists again
 4. Questions 31 to 41: Arithmetic
 5. Questions 46 to 50: Logic and codes
