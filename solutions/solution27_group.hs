@@ -8,6 +8,8 @@ combinations n (x:xs) = x_inc ++ x_exc
                               x_exc = if n>length xs then [] else combinations n xs
 
 -- Adding REST elements to return value of predefined "combinations"
+-- Created a new function by calling existing function.
+-- Runtime is surely better in case of re-defining "combinations"
 combination_pair :: (Eq a) => Int -> [a] -> [([a],[a])]
 combination_pair n xs = do comb <- combinations n xs
                            let rest = filter (\x -> x `notElem` comb) xs
