@@ -7,6 +7,6 @@ goldbach :: Int -> (Int,Int)
 goldbach n | n `mod` 2 /= 0 = error "Input number is not even."
            | otherwise = head $ filter (\(x,y) -> x+y == n) primePair
                          where primePair = do x <- primes
-                                              y <- dropWhile (<=x) primes
+                                              y <- dropWhile (<x) primes
                                               return (x,y)
                                primes = primesR 2 n
