@@ -12,4 +12,4 @@ prime_factors_mult :: Int -> [(Int,Int)]
 prime_factors_mult = map (\xs -> (head xs,length xs)) . group . primeFactors
 
 totient :: Int -> Int
-totient n = foldl (\acc (val,len) -> acc * (val-1) * val ^ (len-1) ) 1 $  prime_factors_mult n
+totient = (product.) $ map (\(val,len) -> (val-1) * val ^ (len-1) ).prime_factors_mult
