@@ -18,4 +18,4 @@ goldbachList l u = map goldbach [lower,lower+2..upper]
                          upper = u - u `mod` 2
 
 goldbachList' :: Int -> Int -> Int -> [(Int,Int)]
-goldbachList' l u min = filter (\(n,_)-> n>min) $ goldbachList l u
+goldbachList' l u min = filter (\(n,m)-> n>min && m>min) $ goldbachList l u
