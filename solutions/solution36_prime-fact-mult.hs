@@ -1,4 +1,4 @@
-import Data.List (groupBy)
+import Data.List (group)
 
 -- Copy of solution 35.
 primeFactors :: Int -> [Int]
@@ -8,4 +8,4 @@ primeFactors n = (factor:) $ primeFactors $ n `div` factor
                        factor = head $ filter isFactor [2..n]
 
 prime_factors_mult :: Int -> [(Int,Int)]
-prime_factors_mult = map (\xs -> (head xs,length xs)) . groupBy (==) . primeFactors
+prime_factors_mult = map (\xs -> (head xs,length xs)) . group . primeFactors
