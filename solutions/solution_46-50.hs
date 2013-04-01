@@ -1,3 +1,5 @@
+-- for Problem 49
+import Control.Monad (replicateM)
 
 -- Problem 46.
 
@@ -21,7 +23,7 @@ nor' :: Bool -> Bool -> Bool
 nor' = (not'.).or'
 
 xor' :: Bool -> Bool -> Bool
-xor' a b = a /= not' b
+xor' a b = a == not' b
 
 mpl' :: Bool -> Bool -> Bool
 mpl' = (not'.).or'
@@ -52,3 +54,13 @@ tablen :: Int -> ([Bool] -> Bool) -> IO ()
 tablen n f = mapM_ putStrLn [ strTruth xs xs | xs <- truthGen n]
              where strTruth (x:xs) params = show x ++ " " ++ (strTruth xs params)
                    strTruth [] params = show $ f params
+
+-- Problem 49.
+
+gray :: Int -> [String]
+gray n = map (toString.genGray) $ replicateM n [False,True]
+         where shiftR xs = False : init xs
+               genGray xs = genGray' xs $ shiftR xs
+                            where genGray' [] _ = []
+                                  genGray' (x:xs) (y:ys) = (x `xor'` y):(genGray' xs ys)
+               toString xs = map (\x -> if x then '1' else '0') xs
