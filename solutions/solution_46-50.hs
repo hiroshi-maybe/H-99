@@ -27,6 +27,5 @@ equ' :: Bool -> Bool -> Bool
 equ' = (==)
 
 table :: (Bool -> Bool -> Bool) -> IO ()
-table f = mapM_ putStrLn strs
-          where arg_set = [(arg1,arg2) | arg1<-[True, False],arg2<-[True, False]]
-                strs = map (\(x,y) -> (show x) ++ " " ++ (show y) ++ " " ++ (show $ f x y)) arg_set
+table f = mapM_ putStrLn [show x ++ " " ++ show y ++ " " ++ (show $ f x y)
+                                | x<-[True, False], y<-[True, False]]
