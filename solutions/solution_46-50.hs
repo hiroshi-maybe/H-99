@@ -1,3 +1,6 @@
+
+-- Problem 46.
+
 not' :: Bool -> Bool
 not' True = False
 not' False = True
@@ -29,3 +32,23 @@ equ' = (==)
 table :: (Bool -> Bool -> Bool) -> IO ()
 table f = mapM_ putStrLn [show x ++ " " ++ show y ++ " " ++ (show $ f x y)
                                 | x<-[True, False], y<-[True, False]]
+
+-- Problem 47.
+
+infixl 4 `or'`
+infixl 6 `and'`
+
+-- Problem 48.
+
+infixl 3 `equ'`
+
+truthGen :: Int -> [[Bool]]
+truthGen 0 = [[]]
+truthGen n = do x <- [True, False]
+                y <- truthGen (n-1)
+                return (x:y)
+
+tablen :: Int -> ([Bool] -> Bool) -> IO ()
+tablen n f = mapM_ putStrLn [ strTruth xs xs | xs <- truthGen n]
+             where strTruth (x:xs) params = show x ++ " " ++ (strTruth xs params)
+                   strTruth [] params = show $ f params
