@@ -74,8 +74,8 @@ gray n = map (toString.genGray) $ replicateM n [False,True]
 data HTree a = Leaf a | Node a (HTree a) (HTree a) deriving (Show)
 
 huffman :: [(Char,Int)] -> [(Char,String)]
-huffman = (sortBy (compare `on` fst)).(encode "").genHTree.initLeaves
-            where initLeaves = (map Leaf).(sortBy (compare `on` snd))
+huffman = (sortBy (compare fst)).(encode "").genHTree.initLeaves
+            where initLeaves = (map Leaf).(sortBy (comparing snd))
                   nodeFreq (Leaf x) = snd x
                   nodeFreq (Node y _ _) = snd y
                   genHTree [y] = y
