@@ -1,6 +1,10 @@
 -- for Problem 49
 import Control.Monad (replicateM)
 
+-- for Problem 50
+import Data.Function
+import Data.List (sortBy)
+
 -- Problem 46.
 
 not' :: Bool -> Bool
@@ -64,3 +68,20 @@ gray n = map (toString.genGray) $ replicateM n [False,True]
                             where genGray' [] _ = []
                                   genGray' (x:xs) (y:ys) = (x `xor'` y):(genGray' xs ys)
                toString xs = map (\x -> if x then '1' else '0') xs
+
+-- Problem 50.
+
+data HTree a = Leaf a | Node a (HTree a) (HTree a) deriving (Show)
+
+huffman :: [(Char,Int)] -> [(Char,String)]
+huffman = (sortBy (compare `on` fst)).(encode "").genHTree.initLeaves
+            where initLeaves = (map Leaf).(sortBy (compare `on` snd))
+                  nodeFreq (Leaf x) = snd x
+                  nodeFreq (Node y _ _) = snd y
+                  genHTree [y] = y
+                  genHTree ys = genHTree $ (Node ('_', nodeFreq n1 + nodeFreq n2) n1 n2):zs
+                                where (n1:n2:zs) = sortBy (compare `on` nodeFreq) ys
+                  encode :: String -> HTree (Char,Int) -> [(Char,String)]
+                  encode code (Node x l r) = (encode (code++"0") l) ++ (encode (code++"1") r)
+                  encode code (Leaf (c,_)) = [(c,code)]
+
