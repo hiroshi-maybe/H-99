@@ -42,3 +42,7 @@ hbalTree :: a -> Int -> [Tree a]
 hbalTree _ 0 = [Empty]
 hbalTree x 1 = [Branch x Empty Empty]
 hbalTree x h = [Branch x left right | (lh,rh) <- [(h-1,h-2),(h-2,h-1),(h-1,h-1)], left <- hbalTree x lh, right <- hbalTree x rh]
+
+-- cbalTree with height (More balanced than problem 59)
+cbalTreeHeight :: Int -> [Tree Char]
+cbalTreeHeight h = concat $ map cbalTree [2^(h-1)..2^h-1]
