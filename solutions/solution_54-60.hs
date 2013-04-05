@@ -35,3 +35,10 @@ construct xs = foldl (\tree x -> add x tree) Empty xs
 
 symCbalTrees :: Int -> [Tree Char]
 symCbalTrees = (filter symmetric).cbalTree
+
+-- Problem 59
+
+hbalTree :: a -> Int -> [Tree a]
+hbalTree _ 0 = [Empty]
+hbalTree x 1 = [Branch x Empty Empty]
+hbalTree x h = [Branch x left right | (lh,rh) <- [(h-1,h-2),(h-2,h-1),(h-1,h-1)], left <- hbalTree x lh, right <- hbalTree x rh]
