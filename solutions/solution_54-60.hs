@@ -30,3 +30,8 @@ add x (Branch y l r) = case x `compare` y of
 
 construct :: (Ord a) => [a] -> Tree a
 construct xs = foldl (\tree x -> add x tree) Empty xs
+
+-- Problem 58
+
+symCbalTrees :: Int -> [Tree Char]
+symCbalTrees = (filter symmetric).cbalTree
