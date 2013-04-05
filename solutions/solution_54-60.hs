@@ -12,10 +12,21 @@ cbalTree n = [ Branch 'x' left right | lNodes <- bNum n, left <- cbalTree lNodes
 
 -- Problem 56
 
-symmetric :: Tree Char -> Bool
+symmetric :: Tree a -> Bool
 symmetric (Branch _ l r) = mirror l `strEq` r
                            where mirror Empty = Empty
                                  mirror (Branch x l r) = Branch x (mirror r) (mirror l)
                                  strEq (Branch _ al ar) (Branch _ bl br) = al `strEq` bl && ar `strEq` br
                                  strEq Empty Empty = True
                                  strEq _ _ = False
+
+-- Problem 57
+
+add :: Ord a => a -> Tree a -> Tree a
+add x Empty = Branch x Empty Empty
+add x (Branch y l r) = case x `compare` y of
+                            GT -> Branch y l (add x r)
+                            _  -> Branch y (add x l) r
+
+construct :: (Ord a) => [a] -> Tree a
+construct xs = foldl (\tree x -> add x tree) Empty xs
