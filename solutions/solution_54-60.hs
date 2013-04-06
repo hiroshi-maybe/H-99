@@ -53,11 +53,11 @@ cbalTreeHeight h = concat $ map cbalTree [2^(h-1)..2^h-1]
 minHeight n = ceiling $ logBase 2 $ fromIntegral (n+1)
 maxHeight n = length $ takeWhile (<=n) $ minNodes
 
-minNodes = 1:2:zipWith (\a b -> a+b+1) minNodes (tail minNodes)
+minNodes = 1:2:zipWith ((+).(+1)) minNodes (tail minNodes)
 
 countNodes :: Tree a -> Int
 countNodes Empty = 0
 countNodes (Branch _ l r) = 1 + countNodes l + countNodes r
 
 hbalTreeNodes :: a -> Int -> [Tree a]
-hbalTreeNodes x n = filter (\y -> countNodes y == n) $ concat $ map (hbalTree x) [minHeight n .. maxHeight n]
+hbalTreeNodes x n = filter ((==n).countNodes) $ concatMap (hbalTree x) [minHeight n .. maxHeight n]
