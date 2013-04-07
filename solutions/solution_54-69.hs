@@ -68,3 +68,10 @@ countLeaves :: Tree a -> Int
 countLeaves (Branch _ Empty Empty) = 1
 countLeaves Empty = 0
 countLeaves (Branch _ l r) = countLeaves l + countLeaves r
+
+-- Problem 61A
+
+leaves :: Tree a -> [a]
+leaves (Branch x Empty Empty) = [x]
+leaves Empty = []
+leaves (Branch _ l r) = leaves l ++ leaves r
