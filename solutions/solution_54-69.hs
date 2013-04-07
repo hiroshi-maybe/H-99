@@ -75,3 +75,10 @@ leaves :: Tree a -> [a]
 leaves (Branch x Empty Empty) = [x]
 leaves Empty = []
 leaves (Branch _ l r) = leaves l ++ leaves r
+
+-- Problem 62
+
+internals :: Tree a -> [a]
+internals Empty = []
+internals (Branch _ Empty Empty) = []
+internals (Branch x l r) = x: internals l ++ internals r
