@@ -61,3 +61,10 @@ countNodes (Branch _ l r) = 1 + countNodes l + countNodes r
 
 hbalTreeNodes :: a -> Int -> [Tree a]
 hbalTreeNodes x n = filter ((==n).countNodes) $ concatMap (hbalTree x) [minHeight n .. maxHeight n]
+
+-- Problem 61
+
+countLeaves :: Tree a -> Int
+countLeaves (Branch _ Empty Empty) = 1
+countLeaves Empty = 0
+countLeaves (Branch _ l r) = countLeaves l + countLeaves r
