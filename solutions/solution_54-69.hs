@@ -90,3 +90,10 @@ atLevel Empty _          = []
 atLevel (Branch x _ _) 1 = [x]
 atLevel (Branch x l r) n = atLevel l (n-1) ++ atLevel r (n-1)
 
+-- Problem 63
+
+completeBinaryTree :: Int -> Tree Char
+completeBinaryTree 0 = Empty
+completeBinaryTree n = Branch 'x' (completeBinaryTree l) (completeBinaryTree r)
+                       where r = (n-1) `div` 2
+                             l = r + (n-1) `mod` 2
