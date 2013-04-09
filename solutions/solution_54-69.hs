@@ -82,3 +82,11 @@ internals :: Tree a -> [a]
 internals Empty = []
 internals (Branch _ Empty Empty) = []
 internals (Branch x l r) = x: internals l ++ internals r
+
+-- Problem 62B
+
+atLevel :: Tree a -> Int -> [a]
+atLevel Empty _          = []
+atLevel (Branch x _ _) 1 = [x]
+atLevel (Branch x l r) n = atLevel l (n-1) ++ atLevel r (n-1)
+
