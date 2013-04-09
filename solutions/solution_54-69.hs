@@ -97,3 +97,17 @@ completeBinaryTree 0 = Empty
 completeBinaryTree n = Branch 'x' (completeBinaryTree l) (completeBinaryTree r)
                        where r = (n-1) `div` 2
                              l = r + (n-1) `mod` 2
+
+isCompleteBinaryTree :: Tree a -> Bool
+isCompleteBinaryTree t = fst $ iscbt' t 1
+
+iscbt' :: Tree a -> Int -> (Bool,(Int,Int))
+iscbt' Empty n = (True,(n,n))
+iscbt' (Branch _ l r) n = (lchk&&rchk&&cbtCheck, (depthmin, depthmax))
+                          where (lchk, (ldepthmin, ldepthmax)) = iscbt' l (n+1)
+                                (rchk, (rdepthmin, rdepthmax)) = iscbt' r (n+1)
+                                depthmin = min ldepthmin rdepthmin
+                                depthmax = max ldepthmax rdepthmax
+                                cbtCheck | ldepthmax < rdepthmin = False
+                                         | depthmax - depthmin > 1 = False
+                                         | otherwise = True
