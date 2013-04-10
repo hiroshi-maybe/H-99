@@ -111,3 +111,22 @@ iscbt' (Branch _ l r) n = (lchk&&rchk&&cbtCheck, (depthmin, depthmax))
                                 cbtCheck | ldepthmax < rdepthmin = False
                                          | depthmax - depthmin > 1 = False
                                          | otherwise = True
+
+-- Problem 64
+
+inorderTraversal :: Tree a -> Int -> Int -> Tree (a,Int,Int,Int)
+inorderTraversal Empty _ _ = Empty
+inorderTraversal (Branch x l r) n h = Branch (x, (lindex+1), rindex, h+1) left right
+                                      where nodeIndex node index = case inorderTraversal node index (h+1) of
+                                                                        node'@(Branch (x,_,m,_) _ _) -> (node',m)
+                                                                        Empty -> (Empty,index)
+                                            (left,lindex) = nodeIndex l n
+                                            (right,rindex) = nodeIndex r (lindex+1)
+
+tformat :: Tree (a,Int,Int,Int) -> Tree (a,(Int,Int))
+tformat Empty = Empty
+tformat (Branch (v,x,_,y) l r) = Branch (v,(x,y)) (tformat l) (tformat r)
+
+layout :: Tree a -> Tree (a,(Int,Int))
+layout t = tformat traversal
+           where traversal = inorderTraversal t 0 0
